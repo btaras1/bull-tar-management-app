@@ -3,13 +3,13 @@ VALUES ('dtaras','123123'),
        ('btaras','123123');
 
 INSERT INTO male (name,color,dob,pedigree_name)
-VALUES ('Face','Tigrasto bijela','2020-01-15','Face'),
+VALUES ('Denis','Tigrasto bijela','2020-01-15','Face'),
        ('Kan','Crno bijela','2020-03-20','Kan'),
        ('Ukie','Crveno bijela','2020-04-07','Zorro');
 
 INSERT INTO female (name,color,dob,pedigree_name)
 VALUES ('Coco','Crno bijela','2020-01-15','Kyra'),
-       ('Rea','Crno bijela','2020-03-20','Konna'),
+       ('Karma','Tigrasto bijela','2020-03-20','Konna'),
        ('Bella','Crno bijela','2020-04-07','Bella');
 
 INSERT INTO mating (male_id,female_id)
@@ -34,14 +34,14 @@ VALUES ('Tonci Huljic','Splitska 92','0987654321','54549825696'),
 		('Marin Cilic','Zagrebacka 192','0987784321','54546625696');
 
 INSERT INTO puppy (name,gender,color,microchip,buyer_paid, buyer_id)
-VALUES ('Pingo','Muzjak','Crna','12545254698563',true,1),
-('Pingo','Muzjak','Crvena','12545254698563',true,2),
-('Ringo','Muzjak','Crna','12545255598563',false,3),
-('Morz','Muzjak','Crvena','12545299698563',true,4),
-('Akita','Zenka','Crvena','12545277698563',false,5),
-('Didi','Zenka','Crna','12545254666563',true,6),
-('Frida','Zenka','Crna','12545254228563',false,null),
-('Jack','Muzjak','Crna','12545254128563',true,null);
+VALUES ('Pingo',true,'Crna','12545254698563',true,1),
+('Pingo',true,'Crvena','12545254698563',true,2),
+('Ringo',true,'Crna','12545255598563',false,3),
+('Morz',true,'Crvena','12545299698563',true,4),
+('Akita',false,'Crvena','12545277698563',false,5),
+('Didi',false,'Crna','12545254666563',true,6),
+('Frida',false,'Crna','12545254228563',false,null),
+('Jack',true,'Crna','12545254128563',true,null);
 
 INSERT INTO puppy_litter(puppy_id,litter_id)
 VALUES(1,1),
