@@ -19,16 +19,17 @@ public class Mating {
 
     @ManyToOne
     @JoinColumn(name="male_id", nullable=false)
-    @JsonIgnore
+
     private Male male;
 
     @ManyToOne
     @JoinColumn(name="female_id", nullable=false)
-    @JsonIgnore
+
     private Female female;
 
     @OneToOne(mappedBy = "mating", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
+    @JsonIgnore
     private Litter litter;
 
     public Mating() {

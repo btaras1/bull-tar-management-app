@@ -1,5 +1,6 @@
 package com.bulltar.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Litter {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mating_id")
+    @JsonIgnore
     private Mating mating;
 
     @ManyToMany
@@ -56,5 +58,13 @@ public class Litter {
 
     public void setMating(Mating mating) {
         this.mating = mating;
+    }
+
+    public List<Puppy> getPuppies() {
+        return puppies;
+    }
+
+    public void setPuppies(List<Puppy> puppies) {
+        this.puppies = puppies;
     }
 }

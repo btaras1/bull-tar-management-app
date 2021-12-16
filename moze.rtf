@@ -1,0 +1,21 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 leglo date\
+SELECT COUNT(*) FROM litter\
+WHERE "date" >= '2011-01-01' AND "date" < '2021-12-31'\
+Mating date\
+SELECT COUNT(*) FROM mating\
+WHERE "date" >= '2011-01-01' AND "date" < '2021-12-31'\
+Puppy count\
+SELECT COUNT(*) FROM puppy pu, litter lt, puppy_litter plt\
+WHERE lt."date" >= '2011-01-01' AND lt."date" < '2021-12-31' AND plt.puppy_id=pu.puppy_id AND plt.litter_id=lt.litter_id\
+\
+SELECT\
+    fe.name AS "name", COUNT(DISTINCT mat.female_id) AS cnt\
+FROM female fe, mating mat WHERE fe.female_id=mat.female_id AND mat."date" >= '2011-01-01' AND mat."date" < '2021-12-31'\
+GROUP BY "name"}

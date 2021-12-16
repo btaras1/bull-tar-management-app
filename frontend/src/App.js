@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { Route, Switch} from 'react-router-dom';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import {Main} from './lib/style/generalStyles';
+import Dogs from './Pages/Dogs/Dogs';
+import Mating from './Pages/Mating/Mating';
+import Home from './Pages/Home/Home';
+const App = () => {
 
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header/>
+      <Main>
+            <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route path='/dog' component={Dogs}/>
+            <Route path='/mating' component={Mating}/>
+            </Switch>
+      </Main>
+      <Footer /> 
+    </>
   );
 }
 
