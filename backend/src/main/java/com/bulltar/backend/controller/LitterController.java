@@ -57,4 +57,9 @@ public class LitterController {
     Long getLitterCount(){
         return litterRepository.count();
     }
+
+    @GetMapping("/last")
+    Litter getLastLitter(){
+        return litterRepository.getLastLitter();
+    }
 }

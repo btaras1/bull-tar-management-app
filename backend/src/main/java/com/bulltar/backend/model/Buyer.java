@@ -1,5 +1,6 @@
 package com.bulltar.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Buyer {
     private String id_number;
 
     @OneToMany(mappedBy="buyer")
+    @JsonIgnore
     private List<Puppy> puppies;
 
     public Buyer() {

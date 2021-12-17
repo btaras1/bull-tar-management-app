@@ -4,3 +4,4 @@ export const getPuppyCount = () =>{
     return fetch(`${apiOrigin}/puppy/stats`)
     .then(res => res.json());
 }
+

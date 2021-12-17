@@ -26,7 +26,6 @@ public class Puppy {
 
     @ManyToOne
     @JoinColumn(name="buyer_id", nullable=false)
-    @JsonIgnore
     private Buyer buyer;
 
     public Puppy() {

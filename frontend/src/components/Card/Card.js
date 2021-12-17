@@ -34,9 +34,9 @@ const Card = ({title, data, mating}) =>{
             <StatCard>
             <Title>{title}</Title>
             <Content>
-                <Row>
-                    <Item>
-                        <Value>{data}</Value>
+                <Row count={true}>
+                    <Item >
+                        <Value count={true}>{data}</Value>
                     </Item>
                 </Row>
             </Content>

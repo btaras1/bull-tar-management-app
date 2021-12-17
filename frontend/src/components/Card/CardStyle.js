@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import {
     colors,
     transitionCubic,
@@ -37,11 +37,19 @@ export const Row = styled.div`
         &:last-child {
             margin-bottom: 0;
         }
+        ${props => props.count === true && css`
+        margin-top: 13%;
+        text-align:center;
+        justify-content: center;
+        `
+            
+        }
 `;
 export const Item = styled.div`
         &:last-child {
         text-align: right;
         }
+
 `;
 export const ItemTitle = styled.h3`
         font-size: 12px;
@@ -49,4 +57,11 @@ export const ItemTitle = styled.h3`
 `;
 export const Value = styled.p`
         font-size: 12px;
+
+        ${props => props.count === true && css`
+        font-size: 48px;
+        `
+            
+        }
 `;
+

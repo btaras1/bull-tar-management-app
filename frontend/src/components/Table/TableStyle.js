@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import {
     colors,
     breakpoints,
@@ -13,6 +13,17 @@ table-layout: fixed;
  white-space:nowrap;
  max-width:100%;
  border-radius: 15px;
+ overflow:hidden;
+ box-shadow: ${boxShadowHover};
+ `;
+ export const PuppyTable = styled.table`
+ border-collapse: collapse;
+ margin: 25px auto;
+table-layout: fixed;
+ white-space:nowrap;
+ max-width:100%;
+
+ overflow:hidden;
  box-shadow: ${boxShadowHover};
  `;
 export const THead = styled.thead`
@@ -65,6 +76,11 @@ width: 100%;
       display: none;
     }
    }
+   ${props => props.inside === true && css`
+   column-span: all;
+   `
+       
+   }
  `;
 
  export const DeleteTableData = styled.td`
@@ -81,4 +97,9 @@ width: 100%;
  export const Text = styled.p`
   text-align:center;
   padding: 12px 15px;
+ `;
+
+ export const PuppyWrapper = styled.div`
+
+
  `;

@@ -25,6 +25,7 @@ const Header = () => {
                         <NavItem exact to="/">Početna</NavItem>
                         <NavItem to="/dog">Moji psi</NavItem>
                         <NavItem to="/mating">Parenja</NavItem>
+                        <NavItem to="/litter">Legla</NavItem>
                     </Nav>
                 </Inner>
             </HeaderWrapper>

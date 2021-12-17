@@ -20,7 +20,6 @@ public class Litter {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mating_id")
-    @JsonIgnore
     private Mating mating;
 
     @ManyToMany
