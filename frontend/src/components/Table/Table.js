@@ -2,11 +2,19 @@ import React, { useEffect } from 'react';
 import {Table as TableStyle, TableHead, TableRow, TableData, THead, TableBody,DeleteTableData, Text, PuppyTable, PuppyWrapper} from './TableStyle'
 import { FaTrash, FaEdit,FaPlusSquare } from 'react-icons/fa'
 import { useState } from 'react/cjs/react.development';
+import Modal from '../Modal/Modal';
+import {AddButton} from '../../lib/style/generalStyles';
+import DogForm from '../DogForm/DogForm';
 
-const Table = ({head,data, dogs, mating, litter, headPuppy}) => {
+const Table = ({title, head,data, dogs, mating, litter, headPuppy}) => {
 
     const [newData, setNewData] = useState([]);
 
+    const [addPressed, setAddPressed] = useState(false);
+
+    const openModal = () => {
+        setAddPressed(!addPressed);
+      }
 
 
     async function setListData() {
@@ -40,12 +48,13 @@ const Table = ({head,data, dogs, mating, litter, headPuppy}) => {
 
       useEffect(() => {
        setListData();
- 
     }, [])
 
     return(
 <>  
+        {addPressed && <Modal title={title} setModal={openModal}><DogForm  addPressed={addPressed} setAddPressed={setAddPressed} /></Modal>}
         {dogs &&
+        <>
             <TableStyle>
                 <THead>
             <TableRow>
@@ -71,6 +80,8 @@ const Table = ({head,data, dogs, mating, litter, headPuppy}) => {
                 )}
             </TableBody>
         </TableStyle>
+        <AddButton onClick={openModal}>Dodaj</AddButton>
+    </>
 }
 {mating &&
             <TableStyle>
@@ -123,6 +134,7 @@ const Table = ({head,data, dogs, mating, litter, headPuppy}) => {
 
                 </TableRow>
                 { content.visible &&
+                
                                         <TableData colSpan={7}>
                                         <PuppyTable>
                                         <THead>
@@ -147,10 +159,14 @@ const Table = ({head,data, dogs, mating, litter, headPuppy}) => {
                                                 <DeleteTableData><FaTrash size={25}  /></DeleteTableData>
                                                 <DeleteTableData><FaPlusSquare size={25} /></DeleteTableData>
                                             </TableRow>
+                                            
                                             )}
+                                        <TableRow><AddButton onClick={openModal}>Dodaj</AddButton></TableRow>
                                         </TableBody>
                                         </PuppyTable>
                                         </TableData>
+                                        
+                          
                                     } </>
                 )}
             </TableBody>

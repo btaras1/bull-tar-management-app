@@ -29,11 +29,13 @@ export const Title = styled.h2`
 `;
 export const Content = styled.div`
     margin-bottom: 15px;
+    
 `;
 export const Row = styled.div`
         display: flex;
         justify-content: space-between;
         margin-bottom: 16px;
+
         &:last-child {
             margin-bottom: 0;
         }
@@ -49,6 +51,16 @@ export const Item = styled.div`
         &:last-child {
         text-align: right;
         }
+        ${props => props.count === true && css`
+
+        &:last-child {
+                text-align: center;
+                }
+ 
+        box-shadow: ${boxShadow};
+        `
+            
+        }
 
 `;
 export const ItemTitle = styled.h3`
@@ -60,6 +72,12 @@ export const Value = styled.p`
 
         ${props => props.count === true && css`
         font-size: 48px;
+        color: ${colors.white};
+        border-radius: 50%;
+        background-color: ${colors.red};
+        width: 100px;
+        height: 100px;
+
         `
             
         }

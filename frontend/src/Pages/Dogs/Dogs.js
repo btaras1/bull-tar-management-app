@@ -5,6 +5,7 @@ import { getAllFemales } from '../../api/female';
 import  Section  from '../../components/Section/Section';
 import  Table  from '../../components/Table/Table';
 import { ColumnLayout } from '../../components/Column/ColumnStyle';
+import {AddButton} from '../../lib/style/generalStyles';
 const Dogs = () => {
 
 
@@ -24,12 +25,14 @@ const Dogs = () => {
         <>
         <ColumnLayout>
         <Section title="MUŽJACI">
-            <Table head={tableHead} data={males} dogs={true}/>
+            <Table head={tableHead} data={males} dogs={true} title={"Novi mužjak"}/>
+        
         </Section>
         </ColumnLayout>
         <ColumnLayout>
         <Section title="ŽENKE" >
-        <Table head={tableHead} data={females} dogs={true}/>
+        <Table head={tableHead} data={females} dogs={true} title={"Nova ženka"}/>
+        
     </Section>
     </ColumnLayout>
     </>

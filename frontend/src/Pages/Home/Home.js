@@ -16,40 +16,36 @@ const Mating = () => {
  const [matings, setMatings] = useState(null);
  const [litterCount, setLitterCount] = useState(null);
  const [puppyCount, setPuppyCount] = useState(null);
- const [stenci, setStenci] = useState(null);
+ const [stenci, setStenci] = useState([]);
  const tableHead = ["Mužjak","Ženka","Datum", "Za van"];
  const tableHeadPuppy= ["Naziv", "Spol", "Boja", "Mikročip","Kupac"];
 
  
 
-
- async function getAll() {
-     getLastLitter().then(response => setStenci(response));
-     getFemaleMatingCount().then(items => setMatings(items));
-     getLitterCount().then(items => setLitterCount(items));
-     getPuppyCount().then(items => setPuppyCount(items));
-    }
-
-    const test = () => {console.log(stenci);}
  
  useEffect(() => {
-   getAll();
 
-
+    const getAll = async () => {
+    getLastLitter().then(response =>  {const array1= [response]; setStenci(response)});
+    getFemaleMatingCount().then(items => setMatings(items));
+    getLitterCount().then(items => setLitterCount(items));
+    getPuppyCount().then(items => setPuppyCount(items));
+      }
+    getAll();
  }, [])
 
  return (
     <>
-       {stenci !=null &&
+    { stenci.length !== 0 &&
         <>
-        <Section title="LEGLA" >
+        <Section title="ZADNJE LEGLO" >
           <OneRowTable head={tableHead} data={stenci} litter={true} headPuppy={tableHeadPuppy}/>
      </Section> 
-     </> }
+    </> } 
 
 
         
-        <Section title="STATISTIKA" >
+        <Section title="STATISTIKA" withoutTopPadding={true} >
             <Grid>
         {matings && 
         <Card title="Parenja" data={matings} mating={true}/>

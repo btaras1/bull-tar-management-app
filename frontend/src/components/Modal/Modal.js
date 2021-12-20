@@ -11,6 +11,7 @@ const Modal = (props) => {
                     <GrClose onClick={()=>props.setModal()}/>
             </FormRow>
             <FormRow>
+                {props.children}
             </FormRow>
         </FormWrapper>
         </ModalWrapper>

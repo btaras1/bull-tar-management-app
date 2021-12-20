@@ -1,35 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {Table as TableStyle, TableHead, TableRow, TableData, THead, TableBody,DeleteTableData, Text, PuppyTable, PuppyWrapper} from '../Table/TableStyle'
 import { FaTrash, FaEdit,FaPlusSquare } from 'react-icons/fa'
 import { useState } from 'react/cjs/react.development';
 
+
 const OneRowTable = ({head,data, litter, headPuppy}) => {
 
-    const [newData, setNewData] = useState(null);
-
+    const [newData, setNewData] = useState(null); 
+    const [visible, setVisible] = useState(false);
+    const firstRender = useRef(true);
 
     async function setData() {
+        console.log("Data");
+        console.log(data);
+        console.log("---------------");
         setNewData(data);
+        console.log("newData");
         console.log(newData);
+        console.log("---------------");
+
+        
     }
 
 
     const handleUpdate = (edit) => {
-        newData.visible = !edit.visible;
-        setNewData(newData);
-        console.log(newData.visible);
+      setVisible(!visible);
     }
 
 
       useEffect(() => {
        setData();
     }, [])
-    
 
     return(
 <>  
 
-{litter &&
+{newData !== null &&
 
             <TableStyle>
                 <THead>
@@ -54,7 +60,7 @@ const OneRowTable = ({head,data, litter, headPuppy}) => {
                     <DeleteTableData><FaPlusSquare size={25} onClick={() => handleUpdate(newData)} /></DeleteTableData>
 
                 </TableRow>
-                { newData.visible &&
+                { visible &&
                                         <TableData colSpan={7}>
                                         <PuppyTable>
                                         <THead>
@@ -84,12 +90,13 @@ const OneRowTable = ({head,data, litter, headPuppy}) => {
                                         </PuppyTable>
                                         </TableData>
                                     } </>
-                )
+                
                 
             </TableBody>
         </TableStyle>
-}       
-
+        
+}
+   
 
 </>
     );

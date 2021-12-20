@@ -5,7 +5,7 @@ import {StatCard,
         Row,
         Item,
         ItemTitle,
-        Value       
+        Value
 } from './CardStyle';
 
 const Card = ({title, data, mating}) =>{
@@ -35,7 +35,7 @@ const Card = ({title, data, mating}) =>{
             <Title>{title}</Title>
             <Content>
                 <Row count={true}>
-                    <Item >
+                    <Item count={true}>
                         <Value count={true}>{data}</Value>
                     </Item>
                 </Row>
