@@ -11,25 +11,34 @@ import {
     OptionText,
     RightColumn,
     LeftColumn,
-    InputTextArea,
     FormOneRow
 } from './DogFormStyle';
 import {Button} from '../Button/ButtonStyle';
 import { useState } from 'react/cjs/react.development';
-
+import { addMale } from '../../api/male';
+import { addFemale } from '../../api/female';
+import { SuccessMessage } from '../../lib/style/generalStyles';
+import DataLoader from '../DataLoader/DataLoader';
 
 
 const DogForm = (props) => {
 
-    const [dog, setDog] = useState(null);
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [isRequestFinished, setIsRequestFinished] = useState(false);
+    const [successMessage, setSuccessMessage] = useState(''); 
 
     const formik = useFormik({
+    
         initialValues: {
+
             id: '',
             name: '',
             color: '',
             dob: '',
             pedigree_name: ''
+        
         },
         validationSchema: Yup.object({
             name: Yup.string()
@@ -41,18 +50,68 @@ const DogForm = (props) => {
             pedigree_name: Yup.string()
                 .required('Pedigree_name is required')
         }),
-    onSubmit: values => {
-        values["id"]=22;
-        console.log(values);
-        setDog([values]);
-        console.log(props.addPressed);
-        props.setAddPressed(!props.addPressed);
-        console.log(dog);
-    },
-    })
+        onSubmit: (values, {resetForm}) => {
+            setIsLoading(true);
+            setIsRequestFinished(false);
+            const dog = {
+                name: values.name,
+                color: values.color,
+                dob: values.dob,
+                pedigree_name: values.pedigree_name
+            }
+            if(props.gender===true){
+            addMale(dog)
+                .then(res => {
+                    resetForm({});
+                    setIsLoading(false);
+                    setIsRequestFinished(true);
+                    setIsError(false);
+                    setSuccessMessage('User is registered successfully !');
+                    setTimeout(() => {
+                    setIsRequestFinished(false);
+                    }, 4000);
+                    props.get();
+                })
+                .catch(err => {
+                    setIsLoading(false);
+                    setIsRequestFinished(true);
+                    setIsError(true);
+                    setSuccessMessage('User registration failed!');
+                })
+                setIsLoading(false);
+            alert(JSON.stringify(values));
+            }
+            else if (props.gender===false){
+                addFemale(dog)
+                .then(res => {
+                    resetForm({});
+                    setIsLoading(false);
+                    setIsRequestFinished(true);
+                    setIsError(false);
+                    setSuccessMessage('User is registered successfully !');
+                    setTimeout(() => {
+                    setIsRequestFinished(false);
+                    }, 4000);
+                    props.get();
+                })
+                .catch(err => {
+                    setIsLoading(false);
+                    setIsRequestFinished(true);
+                    setIsError(true);
+                    setSuccessMessage('User registration failed!');
+                })
+                setIsLoading(false);
+            alert(JSON.stringify(values));
+            }
+            
+        },
+        })
     return(
-        
-<Form onSubmit={formik.handleSubmit}>
+        <>
+    
+        {!isLoading ? (
+            
+                        <Form onSubmit={formik.handleSubmit}>
                             <FormOneRow>
                                 <InputLabel htmlFor='title'>Naziv</InputLabel>
                                 <InputText
@@ -111,12 +170,17 @@ const DogForm = (props) => {
                                 </RightColumn>
                             </FormRow>                                             
                             <FormRow>
-                                <Button type="submit">Add event</Button>
+                                <Button type="submit">Dodaj</Button>
                             </FormRow>
-                        </Form>
-                        
+                       
+                            {isRequestFinished && <FormRow><SuccessMessage isError={isError}>{successMessage}</SuccessMessage></FormRow>}
+                        </Form> )
+                        : (
+                            <DataLoader />
+                        )
+        }
 
-
+</>
            
     );
 }

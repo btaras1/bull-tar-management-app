@@ -20,8 +20,8 @@ const Mating = () => {
     {matings &&
         <>
         <Section title="PARENJA" >
-        <Table head={tableHead} data={matings} mating={true}/>
-        <AddButton>Dodaj</AddButton>
+        <Table get={getMatings} head={tableHead} data={matings} mating={true} title={"Novo parenje"}/>
+       
     </Section>
 
     </>

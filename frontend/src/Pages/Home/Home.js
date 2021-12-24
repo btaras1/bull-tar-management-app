@@ -26,7 +26,7 @@ const Mating = () => {
  useEffect(() => {
 
     const getAll = async () => {
-    getLastLitter().then(response =>  {const array1= [response]; setStenci(response)});
+    getLastLitter().then(response =>  {const array1= [response]; console.log(array1);setStenci(response)});
     getFemaleMatingCount().then(items => setMatings(items));
     getLitterCount().then(items => setLitterCount(items));
     getPuppyCount().then(items => setPuppyCount(items));

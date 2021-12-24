@@ -60,6 +60,25 @@ CREATE TABLE puppy_litter
 	PRIMARY KEY(puppy_id,litter_id)
 );
 
+CREATE OR REPLACE FUNCTION deliver_date_litter()
+	RETURNS TRIGGER
+	AS $$
+	BEGIN
+	UPDATE litter
+	SET deliver_date = date + interval ’2 month’
+	WHERE litter.id = NEW.id;
+	RETURN NEW;
+	END;
+	$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER deliver_date_litter
+	AFTER INSERT
+	ON litter
+	FOR EACH ROW
+EXECUTE PROCEDURE deliver_date_litter();
+
+
 
 
 

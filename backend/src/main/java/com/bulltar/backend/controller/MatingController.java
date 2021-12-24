@@ -55,4 +55,7 @@ public class MatingController {
     Long getMatingCount(){
         return matingRepository.count();
     }
+
+    @GetMapping("/nolitter")
+    List<Mating> findWithoutLitter(){ return matingRepository.noLitter();}
 }

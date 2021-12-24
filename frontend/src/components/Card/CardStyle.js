@@ -56,8 +56,8 @@ export const Item = styled.div`
         &:last-child {
                 text-align: center;
                 }
- 
-        box-shadow: ${boxShadow};
+        vertical-align: middle;
+        line-height: 100px;
         `
             
         }

@@ -14,3 +14,14 @@ export const getLastLitter = () =>{
     return fetch(`${apiOrigin}/litter/last`)
     .then(res => res.json());
 }
+
+export const addLitter = litter =>{
+    return fetch( `${apiOrigin}/litter` , {
+        method: 'POST' ,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(litter),
+    })
+    .then(res => res.json());
+}

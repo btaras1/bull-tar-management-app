@@ -21,8 +21,8 @@ const Litter = () => {
     {litters &&
         <>
         <Section title="LEGLA" >
-        <Table head={tableHead} data={litters} litter={true} headPuppy={tableHeadPuppy}/>
-        <AddButton>Dodaj</AddButton>
+        <Table head={tableHead} data={litters} litter={true} headPuppy={tableHeadPuppy} title={"Novo leglo"}/>
+     
     </Section>
 
     </>

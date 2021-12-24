@@ -12,26 +12,28 @@ const Dogs = () => {
 
  const [males, setMales] = useState(null);
  const [females, setFemales] = useState(null);
+ const [deletePressed, setDeletePressed] = useState(false);
  const tableHead = ["Ime","Boja","Datum rođenja","Pedigre"];
- async function getMales() {getAllMales().then(items => setMales(items));}
+ async function getMales() {;getAllMales().then(items => setMales(items));}
  async function getFemales() {getAllFemales().then(items => setFemales(items));}
  useEffect(() => {
    getMales();
    getFemales();
- }, [])
+   setDeletePressed(false);
+ }, [deletePressed])
  return (
     <>
     {males && females ? (
         <>
         <ColumnLayout>
         <Section title="MUŽJACI">
-            <Table head={tableHead} data={males} dogs={true} title={"Novi mužjak"}/>
+            <Table get={getMales} head={tableHead} data={males} dogs={true} title={"Novi mužjak"} gender={true} deletePressed1={deletePressed} setDeletePressed1={setDeletePressed} />
         
         </Section>
         </ColumnLayout>
         <ColumnLayout>
         <Section title="ŽENKE" >
-        <Table head={tableHead} data={females} dogs={true} title={"Nova ženka"}/>
+        <Table get={getFemales} head={tableHead} data={females} dogs={true} title={"Nova ženka"} gender={false} deletePressed1={deletePressed} setDeletePressed1={setDeletePressed}/>
         
     </Section>
     </ColumnLayout>

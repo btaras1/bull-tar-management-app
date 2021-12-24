@@ -28,7 +28,7 @@ public class Mating {
     private Female female;
 
     @OneToOne(mappedBy = "mating", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = false)
+            fetch = FetchType.LAZY, optional = true)
     @JsonIgnore
     private Litter litter;
 

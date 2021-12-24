@@ -5,15 +5,24 @@ import { useState } from 'react/cjs/react.development';
 import Modal from '../Modal/Modal';
 import {AddButton} from '../../lib/style/generalStyles';
 import DogForm from '../DogForm/DogForm';
+import MatingForm from '../MatingForm/MatingForm';
+import LitterForm from '../LitterForm/LitterForm';
+import PuppyForm from '../PuppyForm/PuppyForm';
+import { deleteMale } from '../../api/male';
+import { deleteFemale } from '../../api/female';
 
-const Table = ({title, head,data, dogs, mating, litter, headPuppy}) => {
+const Table = ({title, head,data, dogs, mating, litter, headPuppy, gender, get, deletePressed1, setDeletePressed1}) => {
 
     const [newData, setNewData] = useState([]);
-
     const [addPressed, setAddPressed] = useState(false);
+    const [addPuppyPressed, setAddPuppyPressed] = useState(false);
 
     const openModal = () => {
         setAddPressed(!addPressed);
+      }
+    
+    const openPuppyModal = () => {
+        setAddPuppyPressed(!addPuppyPressed);
       }
 
 
@@ -45,14 +54,31 @@ const Table = ({title, head,data, dogs, mating, litter, headPuppy}) => {
         setNewData(newList);
     }
       
+    const handleDeleteDog = (dog, gender) => {
+        if(gender){
+            deleteMale(dog.male_id);
+        }
+        else if(!gender){
+            deleteFemale(dog.female_id);
+        }
+        setDeletePressed1(true);
+    }
 
+
+    
       useEffect(() => {
        setListData();
     }, [])
 
+
+
+
     return(
 <>  
-        {addPressed && <Modal title={title} setModal={openModal}><DogForm  addPressed={addPressed} setAddPressed={setAddPressed} /></Modal>}
+        {(addPressed && dogs) && <Modal title={title} setModal={openModal}><DogForm  get={get} addPressed={addPressed} setAddPressed={setAddPressed} gender={gender} /></Modal>}
+        {(addPressed && mating) && <Modal title={title} setModal={openModal}><MatingForm  get={get} addPressed={addPressed} setAddPressed={setAddPressed} /></Modal>}
+        {(addPressed && litter) && <Modal title={title} setModal={openModal}><LitterForm  addPressed={addPressed} setAddPressed={setAddPressed} /></Modal>}
+        {(addPuppyPressed && litter) && <Modal title={title} setModal={openPuppyModal}><PuppyForm  addPressed={addPuppyPressed} setAddPressed={setAddPuppyPressed} /></Modal>}
         {dogs &&
         <>
             <TableStyle>
@@ -75,7 +101,7 @@ const Table = ({title, head,data, dogs, mating, litter, headPuppy}) => {
                     <TableData>{content.dob.substring(0,10)}</TableData>
                     <TableData>{content.pedigree_name}</TableData>
                     <DeleteTableData><FaEdit size={25}  /></DeleteTableData>
-                    <DeleteTableData><FaTrash size={25}  /></DeleteTableData>
+                    <DeleteTableData><FaTrash size={25} onClick={()=>{handleDeleteDog(content, gender) }}  /></DeleteTableData>
                 </TableRow>
                 )}
             </TableBody>
@@ -84,6 +110,7 @@ const Table = ({title, head,data, dogs, mating, litter, headPuppy}) => {
     </>
 }
 {mating &&
+            <>
             <TableStyle>
                 <THead>
             <TableRow>
@@ -106,9 +133,11 @@ const Table = ({title, head,data, dogs, mating, litter, headPuppy}) => {
                 )}
             </TableBody>
         </TableStyle>
+        <AddButton onClick={openModal}>Dodaj</AddButton>
+        </>
 }
 {litter &&
-
+<>
             <TableStyle>
                 <THead>
             <TableRow>
@@ -161,7 +190,7 @@ const Table = ({title, head,data, dogs, mating, litter, headPuppy}) => {
                                             </TableRow>
                                             
                                             )}
-                                        <TableRow><AddButton onClick={openModal}>Dodaj</AddButton></TableRow>
+                                        <TableRow><AddButton onClick={openPuppyModal}>Dodaj</AddButton></TableRow>
                                         </TableBody>
                                         </PuppyTable>
                                         </TableData>
@@ -171,6 +200,8 @@ const Table = ({title, head,data, dogs, mating, litter, headPuppy}) => {
                 )}
             </TableBody>
         </TableStyle>
+        <AddButton onClick={openModal}>Dodaj</AddButton>
+        </>
 }       
 
 
