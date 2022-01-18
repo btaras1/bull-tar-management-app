@@ -12,10 +12,11 @@ public class Female {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long female_id;
+    private Long id;
 
     private String name;
     private String color;
+    @Temporal(TemporalType.DATE)
     private Date dob;
     private String pedigree_name;
 
@@ -25,8 +26,8 @@ public class Female {
     public Female() {
     }
 
-    public Long getFemale_id() {
-        return female_id;
+    public Long getid() {
+        return id;
     }
 
     public String getName() {

@@ -1,6 +1,7 @@
 package com.bulltar.backend.controller;
 
 import com.bulltar.backend.model.Litter;
+import com.bulltar.backend.model.Puppy;
 import com.bulltar.backend.repository.LitterRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,8 @@ public class LitterController {
     public Litter update(@PathVariable Long id, @RequestBody Litter litter){
         Litter currentLitter = litterRepository.getById(id);
         BeanUtils.copyProperties(litter, currentLitter, "id");
-        return litterRepository.getById(id);
+        System.out.println(currentLitter);
+        return litterRepository.saveAndFlush(currentLitter);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -47,8 +49,8 @@ public class LitterController {
 
     @GetMapping("/stats")
     Integer getLitterYearCount(){
-        LocalDate firstDate = LocalDate.of(/*Year.now().getValue()*/ 2020,1,1);
-        LocalDate lastDate = LocalDate.of(/*Year.now().getValue()*/2020,12,31);
+        LocalDate firstDate = LocalDate.of(Year.now().getValue(),1,1);
+        LocalDate lastDate = LocalDate.of(Year.now().getValue(),12,31);
 
         return litterRepository.getLitterYearCount(firstDate,lastDate);
     }
@@ -61,5 +63,15 @@ public class LitterController {
     @GetMapping("/last")
     Litter getLastLitter(){
         return litterRepository.getLastLitter();
+    }
+
+    @RequestMapping(value = "puppy/{id}", method = RequestMethod.PUT)
+    public Litter addPuppy(@PathVariable Long id, @RequestBody Puppy puppy){
+        Litter currentLitter = litterRepository.getById(id);
+        List<Puppy> puppies = currentLitter.getPuppies();
+        puppies.add(puppy);
+        currentLitter.setPuppies(puppies);
+        System.out.println(currentLitter);
+        return litterRepository.saveAndFlush(currentLitter);
     }
 }

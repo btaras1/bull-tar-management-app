@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity(name ="buyer")
@@ -11,10 +12,17 @@ import java.util.List;
 public class Buyer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long buyer_id;
+    private Long id;
 
     private String name;
+    @Temporal(TemporalType.DATE)
+    private Date dob;
     private String adress;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
+    private City city;
+
     private String mobile_number;
     private String id_number;
 
@@ -25,8 +33,8 @@ public class Buyer {
     public Buyer() {
     }
 
-    public Long getBuyer_id() {
-        return buyer_id;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -68,4 +76,22 @@ public class Buyer {
     public void setPuppies(List<Puppy> puppies) {
         this.puppies = puppies;
     }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+
 }

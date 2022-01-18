@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity(name ="mating")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -13,8 +12,8 @@ public class Mating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long mating_id;
-
+    private Long id;
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @ManyToOne
@@ -35,8 +34,8 @@ public class Mating {
     public Mating() {
     }
 
-    public Long getMating_id() {
-        return mating_id;
+    public Long getId() {
+        return id;
     }
 
     public Date getDate() {
@@ -69,5 +68,10 @@ public class Mating {
 
     public void setLitter(Litter litter) {
         this.litter = litter;
+    }
+
+    @Override
+    public String toString() {
+        return getMale().getName() + " " + getFemale().getName();
     }
 }

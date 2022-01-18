@@ -1,6 +1,4 @@
-INSERT INTO "user"(username, password)
-VALUES ('dtaras','123123'),
-       ('btaras','123123');
+
 
 INSERT INTO male (name,color,dob,pedigree_name)
 VALUES ('Denis','Tigrasto bijela','2020-01-15','Face'),
@@ -25,13 +23,13 @@ VALUES ('2020-01-15','2020-03-15',1),
        ('2020-04-07','2020-06-07',3);
 
 
-INSERT INTO buyer (name,adress,mobile_number,id_number)
-VALUES ('Tonci Huljic','Splitska 92','0987654321','54549825696'),
-		('Stipe Pletikosa','Splitska 44','0987654885','54111825696'),
-		('Pero Peric','Ilica 92','0975654321','54511425696'),
-		('Marin Milan','Optujska 92','0988856321','54521258696'),
-		('Ole Solskaer','JedenStrasse 11b','0918545921','54545285696'),
-		('Marin Cilic','Zagrebacka 192','0987784321','54546625696');
+INSERT INTO buyer (name,dob,adress,city_id,mobile_number,id_number)
+VALUES ('Tonci Huljic','2020-01-15','Splitska 92',1,'0987654321','54549825696'),
+		('Stipe Pletikosa','2020-01-15','Splitska 44',2,'0987654885','54111825696'),
+		('Pero Peric','2020-01-15','Ilica 92',3,'0975654321','54511425696'),
+		('Marin Milan','2020-01-15','Optujska 92',4,'0988856321','54521258696'),
+		('Ole Solskaer','2020-01-15','JedenStrasse 11b',5,'0918545921','54545285696'),
+		('Marin Cilic','2020-01-15','Zagrebacka 192',6,'0987784321','54546625696');
 
 INSERT INTO puppy (name,gender,color,microchip,buyer_paid, buyer_id)
 VALUES ('Pingo',true,'Crna','12545254698563',true,1),

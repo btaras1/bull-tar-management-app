@@ -1,6 +1,5 @@
 package com.bulltar.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -13,26 +12,24 @@ public class Litter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long litter_id;
-
+    private Long id;
+    @Temporal(TemporalType.DATE)
     private Date date;
+    @Temporal(TemporalType.DATE)
     private Date deliver_date;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mating_id")
     private Mating mating;
 
-    @ManyToMany
-    @JoinTable(
-            name="puppy_litter",
-            joinColumns = @JoinColumn(name ="litter_id"),
-            inverseJoinColumns = @JoinColumn(name = "puppy_id"))
+    @ManyToMany(mappedBy = "litters", cascade = CascadeType.ALL)
+
     private List<Puppy> puppies;
     public Litter() {
     }
 
-    public Long getLitter_id() {
-        return litter_id;
+    public Long getId() {
+        return id;
     }
 
     public Date getDate() {
@@ -65,5 +62,10 @@ public class Litter {
 
     public void setPuppies(List<Puppy> puppies) {
         this.puppies = puppies;
+    }
+
+    @Override
+    public String toString() {
+        return getMating().toString() + " " + getPuppies().toString();
     }
 }

@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface FemaleRepository extends JpaRepository<Female, Long> {
 
-    @Query(value = "SELECT fe.name AS \"name\", COUNT(DISTINCT mat.female_id) AS cnt FROM female fe, mating mat WHERE fe.female_id=mat.female_id AND mat.\"date\" >= :firstDate AND mat.\"date\" < :lastDate GROUP BY \"name\"", nativeQuery = true)
+    @Query(value = "SELECT fe.name AS \"name\", COUNT(DISTINCT mat.female_id) AS cnt FROM female fe, mating mat WHERE fe.id=mat.female_id AND mat.\"date\" >= :firstDate AND mat.\"date\" < :lastDate GROUP BY \"name\"", nativeQuery = true)
     List<FemaleMatingCountDtoRes> getFemaleMatingCount(@Param("firstDate") LocalDate firstDate, @Param("lastDate") LocalDate lastDate);
 }

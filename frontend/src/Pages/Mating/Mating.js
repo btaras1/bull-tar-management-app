@@ -1,33 +1,45 @@
-
-import { useEffect, useState } from 'react';
-import { getAllMatings } from '../../api/mating';
-import  Section  from '../../components/Section/Section';
-import  Table  from '../../components/Table/Table';
-import {AddButton} from '../../lib/style/generalStyles';
+import { useEffect, useState } from "react";
+import { getAllMatings } from "../../api/mating";
+import Section from "../../components/Section/Section";
+import Table from "../../components/Table/Table";
 
 const Mating = () => {
- const [matings, setMatings] = useState(null);
- const tableHead = ["Mužjak","Ženka","Datum"];
+  const authToken = localStorage.getItem("authToken");
+  const [matings, setMatings] = useState(null);
+  const [deletePressed, setDeletePressed] = useState(false);
+  const tableHead = ["Mužjak", "Ženka", "Datum"];
 
- async function getMatings() {getAllMatings().then(items => setMatings(items));}
- 
- useEffect(() => {
-   getMatings();
- })
+  async function getMatings() {
+    setMatings(null);
+    getAllMatings(authToken).then((items) => setMatings(items));
+    console.log(matings);
+  }
 
- return (
+  useEffect(() => {
+    getMatings();
+    setDeletePressed(false);
+  }, [deletePressed]);
+
+  return (
     <>
-    {matings &&
+      {matings ? (
         <>
-        <Section title="PARENJA" >
-        <Table get={getMatings} head={tableHead} data={matings} mating={true} title={"Novo parenje"}/>
-       
-    </Section>
-
-    </>
-}
+          <Section title="PARENJA">
+            <Table
+              get={getMatings}
+              head={tableHead}
+              passedData={matings}
+              matings={true}
+              title={"Novo parenje"}
+              setDeletePressed={setDeletePressed}
+            />
+          </Section>
+        </>
+      ) : (
+        <Section title="LOADING..." />
+      )}
     </>
   );
-}
+};
 
 export default Mating;

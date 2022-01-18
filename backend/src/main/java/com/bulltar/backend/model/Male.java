@@ -1,8 +1,6 @@
 package com.bulltar.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,10 +12,11 @@ public class Male {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long male_id;
+    private Long id;
 
     private String name;
     private String color;
+    @Temporal(TemporalType.DATE)
     private Date dob;
     private String pedigree_name;
 
@@ -26,8 +25,8 @@ public class Male {
     public Male() {
     }
 
-    public Long getMale_id() {
-        return male_id;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {

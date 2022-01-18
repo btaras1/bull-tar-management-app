@@ -12,7 +12,7 @@ public class Puppy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long puppy_id;
+    private Long id;
 
     private String name;
     private boolean gender;
@@ -20,19 +20,23 @@ public class Puppy {
     private String microchip;
     private boolean buyer_paid;
 
-    @ManyToMany(mappedBy = "puppies", cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(
+            name="puppy_litter",
+            joinColumns = @JoinColumn(name ="puppy_id"),
+            inverseJoinColumns = @JoinColumn(name = "litter_id"))
     @JsonIgnore
     private List<Litter> litters;
 
-    @ManyToOne
-    @JoinColumn(name="buyer_id", nullable=false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="buyer_id", nullable=true)
     private Buyer buyer;
 
     public Puppy() {
     }
 
-    public Long getPuppy_id() {
-        return puppy_id;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -89,5 +93,10 @@ public class Puppy {
 
     public void setBuyer(Buyer buyer) {
         this.buyer = buyer;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

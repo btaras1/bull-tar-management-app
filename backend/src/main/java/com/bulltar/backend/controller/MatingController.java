@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.List;
 
 @RestController
@@ -36,7 +37,7 @@ public class MatingController {
     public Mating update(@PathVariable Long id, @RequestBody Mating mating){
         Mating currentMating = matingRepository.getById(id);
         BeanUtils.copyProperties(mating, currentMating, "id");
-        return matingRepository.getById(id);
+        return matingRepository.saveAndFlush(currentMating);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -46,8 +47,8 @@ public class MatingController {
 
     @GetMapping("/stats")
     Integer getMatingYearCount(){
-        LocalDate firstDate = LocalDate.of(/*Year.now().getValue()*/ 2020,1,1);
-        LocalDate lastDate = LocalDate.of(/*Year.now().getValue()*/2021,12,31);
+        LocalDate firstDate = LocalDate.of(Year.now().getValue(),1,1);
+        LocalDate lastDate = LocalDate.of(Year.now().getValue(),12,31);
         return matingRepository.getMatingYearCount(firstDate,lastDate);
     }
 

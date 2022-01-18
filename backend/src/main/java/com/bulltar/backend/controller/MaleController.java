@@ -6,7 +6,7 @@ import com.bulltar.backend.repository.MaleRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -33,9 +33,10 @@ public class MaleController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public Male update(@PathVariable Long id, @RequestBody Male male){
+
         Male currentMale = maleRepository.getById(id);
         BeanUtils.copyProperties(male, currentMale, "id");
-        return maleRepository.getById(id);
+        return maleRepository.saveAndFlush(currentMale);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)

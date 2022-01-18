@@ -16,4 +16,9 @@ public interface LitterRepository extends JpaRepository<Litter, Long> {
 
    @Query(value ="select * FROM litter order by date DESC LIMIT 1", nativeQuery = true)
    Litter getLastLitter();
+
+   @Query(value="SELECT l.id,l.date,l.deliver_date,l.mating_id FROM\n" +
+           "buyer b, puppy p, puppy_litter plt, litter l\n" +
+           "WHERE b.id =:buyerId AND p.buyer_id=b.id AND p.id=plt.puppy_id AND l.id=plt.litter_id", nativeQuery = true)
+   Litter getByBuyerId(@Param("buyerId") Long buyerId);
 }
